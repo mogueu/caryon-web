@@ -1,0 +1,11 @@
+.btn{
+    &.btn-light{
+        background-color: #dee2e6;
+        border-color: #dee2e6;
+    }
+    &.btn-transparent{
+        border: none;
+        background-color: transparent;
+        padding: .175rem .20rem
+    }
+}

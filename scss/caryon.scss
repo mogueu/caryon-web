@@ -1,6 +1,8 @@
 @import "./components/navbar";
 @import "./components/ticket";
+@import "./components/button";
 @import "./pages/dashboard";
+@import "./pages/login";
 
 *{
     box-sizing: border-box;
@@ -37,62 +39,6 @@
 .i, i{
     display: inline-block;
     margin: 5px !important;
-}
-
-.btn{
-    &.btn-light{
-        background-color: #dee2e6;
-        border-color: #dee2e6;
-    }
-    &.btn-transparent{
-        border: none;
-        background-color: transparent;
-        padding: .175rem .20rem
-    }
-}
-
-
-
-#login{
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: center;
-    background-color: #a3a3a3;
-
-    .login-form{
-        justify-self: center;
-        align-self: center;
-        .card{
-            width: 500px;
-            height: auto;
-            &-header{
-                height: 100px;
-                font-size: 32px;
-                font-weight: bold;
-                text-shadow: #a3a3a3;
-                text-decoration: double;
-                text-align: center;
-                vertical-align: middle;
-            }
-        }
-        .form-group{
-            label{
-                width: 100%;
-                text-align: left;
-            }
-        }
-    }
-
-    .copyright{
-        border-top: 1px solid #e6e1e1;
-        margin-bottom: 30px;
-        margin-top: 50px;
-        padding: 30px 15px;
-        .btn{
-            border-radius: 15px;
-        }
-    }
 }
 
 .filter{
@@ -139,6 +85,11 @@ label{
             display: inline-block;
             width: 70%;
         }
+    } 
+}
+
+@media  screen and (max-width:900px) {
+    body{
+        display: none;
     }
-    
 }

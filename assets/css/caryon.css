@@ -32,12 +32,28 @@
   align-items: end;
 }
 .ticket-body {
-  text-align: right;
-  font-size: 32px;
+  text-align: center;
+  font-size: 42px;
   font-weight: bold;
   height: 50px;
   border-radius: 0px 0px 15px 15px;
   padding: 0px 15px;
+}
+.ticket-body span {
+  font-size: 14px;
+  font-weight: lighter;
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.btn.btn-light {
+  background-color: #dee2e6;
+  border-color: #dee2e6;
+}
+.btn.btn-transparent {
+  border: none;
+  background-color: transparent;
+  padding: 0.175rem 0.2rem;
 }
 
 .dashboard {
@@ -69,52 +85,6 @@
 .dashboard-list .products {
   height: 300px;
   padding: 15px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-#body {
-  height: 100vh;
-  width: 100%;
-  background-color: #ccc;
-}
-
-#main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 30px;
-}
-#main > div {
-  width: 1200px;
-}
-
-.h1, h1 {
-  font-size: 24px !important;
-  margin-bottom: 15px !important;
-}
-
-.h2, h2, .h3, h3 {
-  font-size: 14px !important;
-  margin: 0 !important;
-  text-transform: uppercase;
-}
-
-.i, i {
-  display: inline-block;
-  margin: 5px !important;
-}
-
-.btn.btn-light {
-  background-color: #dee2e6;
-  border-color: #dee2e6;
-}
-.btn.btn-transparent {
-  border: none;
-  background-color: transparent;
-  padding: 0.175rem 0.2rem;
 }
 
 #login {
@@ -155,6 +125,42 @@
   border-radius: 15px;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+#body {
+  height: 100vh;
+  width: 100%;
+  background-color: #ccc;
+}
+
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 30px;
+}
+#main > div {
+  width: 1200px;
+}
+
+.h1, h1 {
+  font-size: 24px !important;
+  margin-bottom: 15px !important;
+}
+
+.h2, h2, .h3, h3 {
+  font-size: 14px !important;
+  margin: 0 !important;
+  text-transform: uppercase;
+}
+
+.i, i {
+  display: inline-block;
+  margin: 5px !important;
+}
+
 .filter {
   display: flex;
   justify-content: space-between;
@@ -193,6 +199,12 @@ label {
 #order-form .form-group .form-control, #profile-form .form-group .form-control {
   display: inline-block;
   width: 70%;
+}
+
+@media screen and (max-width: 900px) {
+  body {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=caryon.css.map */

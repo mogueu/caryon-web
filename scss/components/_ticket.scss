@@ -17,11 +17,17 @@
         align-items: end;
     }
     &-body{
-        text-align: right;
-        font-size: 32px;
+        text-align: center;
+        font-size: 42px;
         font-weight: bold;
         height: 50px;
         border-radius: 0px 0px 15px 15px;
         padding: 0px 15px;
+        span{
+            font-size: 14px;
+            font-weight: lighter;
+            display: inline-block;
+            margin-left: 10px;
+        }
     }
 }
