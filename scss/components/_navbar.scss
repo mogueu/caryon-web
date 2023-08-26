@@ -1,0 +1,13 @@
+.navbar{
+    position: fixed;
+    height: 50px;
+    &-brand{
+        min-width: 200px;
+    }
+    .nav-item{
+        width: 120px;
+        border-right: 1px solid #000 !important;
+        text-align: center;
+        font-weight: bolder;
+    }
+}

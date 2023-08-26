@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="CARYON">
+        <meta name="keywods" content="stock management">
+
+        <title>CARYON</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="assets/css/caryon.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <limk rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/fontawesome.min.css"></limk>
+        <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/regular.min.css">
+        <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/solid.min.css">
+
+        <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
+        <script src="assets/bootstrap/js/bootstrap.js"></script>
+        <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
+        <script>
+            $('#myModal').modal(show)
+        </script>
+    </head>
+
+    <body id="body">
+        <!-- top header in fixed position -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+            <a class="navbar-brand" href="#">CARYON</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="brand.html">Brands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="category.html">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="product.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="supplier.html">Suppliers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="order.html">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user.html">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">logout</a>
+                    </li>  
+                </ul>
+                
+            </div>
+        </nav>
+          
+
+        <!-- main content of the appm where evereything are displayed -->
+        <main id="main">
+            <div class="page-title">
+                <h1 class="h1"><i class="fa-solid fa-arrow-up-right-from-square"></i>Manage orders</h1>
+            </div>
+            <div class="notifications alert alert-success">
+                
+            </div>
+
+            <!-- all informations about the component are displayed here -->
+            <div class="card text-left">
+                <div class="card-header">
+                  <span>New Order form</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="buttons text-right">
+                        <button class="btn btn-light" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-circle-plus"></i>New order</button><br><br>
+                    </div>
+                
+                    <div class="form">
+                        <form method="post" action="#" id="order-form">
+
+                            <!-- customer identificationm the name is not required. if the space is left emptym a default value will be added -->
+                            <fieldset>
+                                <div class="form-group text-right">
+                                    <label class="h" for="customer_name">Customer Name</label>
+                                    <input style="width:85%" type="text" name="customer_name" id="customer_name" class="customer_name form-control">
+                                </div>
+                                <div class="form-group text-right">
+                                    <label class="h" for="customer_contact">Customer Contact</label>
+                                    <input style="width:85%" type="number" name="customer_contact" id="customer_contact" class="customer_contact form-control">
+                                </div>
+                            </fieldset>
+
+                            <!-- the dynamic table to choose the articles the customer is buying -->
+                            <fieldset>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Product code</th>
+                                            <th style="width: 400px;">Product</th>
+                                            <th>Unit price</th>
+                                            <th style="width: 50px;">Quantity</th>
+                                            <th>total amount</th>
+                                            <th style="width: 150px;"></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr id="product_line_1">
+                                            <td>
+                                                <input type="text" name="product_code" id="product_code" class="product_code form-control">
+                                            </td>
+                                            <td>
+                                                <input type="text" name="product" id="product" class="product form-control">
+                                            </td>
+                                            <td>
+                                                <input type="number" name="product_price" id="product_price" class="product_price form-control" disabled>
+                                            </td>
+                                            <td>
+                                                <input type="number" name="product_quantity" id="product_quantity" class="product_quantity form-control">
+                                            </td>
+                                            <td>
+                                                <input type="number" name="product_amount" id="product_amount" class="product_amount form-control" disabled>
+                                            </td>
+                                            <td class="action">
+                                                <button type="button" class="btn btn-light text-success"><i class="fa-solid fa-floppy-disk"></i></button>
+                                                <button type="button" class="btn btn-light text-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </fieldset>
+
+                            <!-- calculation -->
+                            <fieldset>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="sub_amount">Sub Amount</label>
+                                            <input type="number" name="sub_amount" id="sub_amount" class="sub_amount form-control" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="vat">VAT 19%</label>
+                                            <input type="number" name="vat" id="vat" class="vat form-control" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="total">Sub Amount</label>
+                                            <input type="number" name="total" id="total" class="total form-control" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="discount">Discount</label>
+                                            <input type="number" name="discount" id="discount" class="discount form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="net_payable">Net payable</label>
+                                            <input type="number" name="net_payable" id="net_payable" class="net_payable form-control" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="paid_amount">Paid</label>
+                                            <input type="number" name="paid_amount" id="paid_amount" class="paid_amount form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="due_amount">Due amount</label>
+                                            <input type="number" name="due_amount" id="due_amount" class="due_amount form-control" disabled>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="payment_type">Payment type</label>
+                                            <select type="number" name="payment_type" id="payment_type" class="payment_type form-control">
+                                                <option value=""> -- SELECT --</option>
+                                                <option value="cash">Cash</option>
+                                                <option value="MoMo">MTN Mobile Money</option>
+                                                <option value="OM">Orange Money</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="order_status">Order status</label>
+                                            <input type="text" name="order_status" id="order_status" class="order_status form-control" value="not paid" disabled>
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <button type="button" class="btn btn-warning w-100" id="validate_payment">Validate payment</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset><br>
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-primary" id="save"><i class="fa-solid fa-floppy-disk"></i>Save</button>
+                                <input type="reset" class="btn btn-light" id="cancel" name="cancel" value="Cancel">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+              <!-- Modal -->
+              <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>test</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

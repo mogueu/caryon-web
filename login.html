@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="CARYON">
+        <meta name="keywods" content="stock management">
+
+        <title>CARYON</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="assets/css/caryon.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Shrikhand&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        
+    </head>
+
+    <body>
+        <!-- main content of the appm where evereything are displayed -->
+        <main id="login">
+            <div class="login-form">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center justify-content-center">
+                        <span>CARYON</span>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="notifications alert">
+                            <span id="notifications-message"></span>
+                        </div>
+                        <form method="get">
+                            <div class="form-group">
+                                <label for="username">Username :</label>
+                                <input type="text" id="username" name="username" class="username form-control w-100" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password :</label>
+                                <input type="password" id="password" name="password" class="password form-control w-100" required>
+                            </div> 
+                            <br>
+                            <div class="form-group text-center">
+                                <button type="button" class="btn btn-primary w-50" id="log-in">Log in</button>
+                            </div>
+                        </form>
+
+                        <!-- copyright -->
+                        <div class="copyright text-center">
+                            <div class="btn btn-dark btn-rounded w-100">Proudly designed by AfreeKhan Technologies</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- load js code -->
+        <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
+        <script src="assets/bootstrap/js/bootstrap.js"></script>
+        <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
+        <script src="assets/js/login.js"></script>
+    </body>
+</html>

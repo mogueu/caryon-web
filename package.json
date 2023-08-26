@@ -1,0 +1,16 @@
+{
+  "name": "caryon",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./scss/caryon.scss:./assets/css/caryon.css"
+  },
+  "author": "afreekhan",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.1",
+    "jquery": "^3.7.0",
+    "sass": "^1.66.1"
+  }
+}

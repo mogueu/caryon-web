@@ -1,0 +1,27 @@
+.ticket{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: #fff;
+    height: 100px;
+    &-header{
+        text-transform: uppercase;
+        text-align: left;
+        font-size: 14px;
+        border-right: #eee;
+        height: 40px;
+        border-radius: 15px 15px 0px 0px;
+        padding: 0px 15px;
+        display: flex;
+        align-items: end;
+    }
+    &-body{
+        text-align: right;
+        font-size: 32px;
+        font-weight: bold;
+        height: 50px;
+        border-radius: 0px 0px 15px 15px;
+        padding: 0px 15px;
+    }
+}

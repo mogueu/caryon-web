@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="CARYON">
+        <meta name="keywods" content="stock management">
+
+        <title>CARYON USER</title>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+        <link rel="stylesheet" href="assets/css/caryon.css">
+        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/regular.min.css">
+        <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/solid.min.css">
+
+        <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
+        <script src="assets/bootstrap/js/bootstrap.js"></script>
+        <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
+        <script>
+            $('#myModal').modal(show)
+        </script>
+    </head>
+
+    <body id="body">
+        <!-- top header in fixed position -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+            <a class="navbar-brand" href="#">CARYON</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="brand.html">Brands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="category.html">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="product.html">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="supplier.html">Suppliers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="order.html">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="user.html">Users</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profile.html">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">logout</a>
+                    </li>  
+                </ul>
+                
+            </div>
+        </nav>
+          
+
+        <!-- main content of the appm where evereything are displayed -->
+        <main id="main">
+            <div class="page-title">
+                <h1 class="h1"><i class="fa-solid fa-arrow-up-right-from-square"></i>Manage users</h1>
+            </div>
+            <div class="notifications">
+                
+            </div>
+
+            <!-- all informations about the component are displayed here -->
+            <div class="card text-left">
+                <div class="card-header">
+                  <span>Manage users</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="buttons text-right">
+                        <button class="btn btn-light" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-circle-plus"></i>New user</button><br><br>
+                    </div>
+                    <div class="filter">
+                        <form method="post" action="#" class="col-sm-4">
+                            <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Search">
+                        </form>
+                    </div>
+                    <div class="archive">
+                        <table class="table table-hover">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Created</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>username</td>
+                                    <td>Role</td>
+                                    <td>Status</td>
+                                    <td>Created</td>
+                                    <td class="action">
+                                        <button class="btn btn-transparent text-info"><i class="fa-solid fa-pen-to-square"></i></button>
+                                        <button class="btn btn-transparent text-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" class="text-center">No brand found</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card-footer text-muted">
+                    <button class="preview btn btn-transparent" id="preview">Preview</button>
+                    <span class="btn btn-dark">1</span>
+                    <button class="next btn btn-transparent" id="next">Next</button>
+                </div>
+
+            </div>
+
+              <!-- Modal -->
+              <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myModalLabel">Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>test</p>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>
