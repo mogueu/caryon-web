@@ -66,10 +66,25 @@ table{
     }
 }
 
-label{
-    font-weight: bolder;
+.form{
+    padding: 15px 0px;
 }
 
+.image-preview{
+    width: 150px;
+    height: 150px;
+    border: 1px solid #ccc;
+    margin-bottom: 15px;
+    img{
+        object-fit: cover;
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.form-button{
+    margin: 30px 15px;
+}
 #order-form, #profile-form{
     legend{
         border-bottom: 1px solid #e6e1e1;

@@ -1,12 +1,10 @@
-.navbar{
-    position: fixed;
-    height: 50px;
+#navbar{
     &-brand{
-        min-width: 200px;
+        min-width: 150px;
     }
     .nav-item{
         width: 120px;
-        border-right: 1px solid #000 !important;
+        border-right: 1px solid #fff !important;
         text-align: center;
         font-weight: bolder;
     }

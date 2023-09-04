@@ -11,16 +11,9 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="stylesheet" href="assets/css/caryon.css">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap-5.3.1-dist/css/bootstrap.min.css">
         <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/regular.min.css">
         <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/solid.min.css">
-
-        <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
-        <script src="assets/bootstrap/js/bootstrap.js"></script>
-        <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
-        <script>
-            $('#myModal').modal(show)
-        </script>
     </head>
 
     <body id="body">
@@ -81,8 +74,8 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="buttons text-right">
-                        <button class="btn btn-light" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-circle-plus"></i>New product</button><br><br>
+                    <div class="buttons text-end">
+                        <button class="btn btn-light" id="add-button" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-circle-plus"></i>New product</button><br><br>
                     </div>
                     <div class="filter">
                         <form method="post" action="#" class="col-sm-4">
@@ -115,8 +108,7 @@
                                     <td>price</td>
                                     <td>quantity</td>
                                     <td class="action">
-                                        <button class="btn btn-transparent text-info"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button class="btn btn-transparent text-danger"><i class="fa-solid fa-trash-can"></i></button>
+                                        <button class="btn btn-transparent text-info edit-button" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen-to-square"></i></button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -133,25 +125,162 @@
                     <button class="next btn btn-transparent" id="next">Next</button>
                 </div>
 
-            </div>
+                <!-- Modal dialog to add new product-->
+                <div class="modal modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">New product's form</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="notifications">
+                                    <span></span>
+                                </div>
+                                <form class="form">
+                                    <div class="row">
+                                        <div class="mb-3 col-sm-3">
+                                            <label for="newImage" class="form-label">Product's image :</label>
+                                            <p><i>(jpeg, png : 4 mo max)</i></p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="image-preview">
+                                                <img id="newPreview" src="assets/img/default_image.png" alt="defaut image preview">
+                                            </div>
+                                            <input type="file" name="newImage" id="newImage" class="form-control" accept=".jpg, .png">
 
-              <!-- Modal -->
-              <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="mb-3 col">
+                                            <label for="newCode" class="form-label">Code :</label>
+                                            <input type="text" name="newCode" id="newCode" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="newName" class="form-label">Name :</label>
+                                            <input type="text" name="newName" id="newName" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col">
+                                            <label for="newCategory" class="form-label">Category :</label>
+                                            <select name="newCategory" id="newCategory" class="form-control" required>
+                                                <option value="">-- SELECT --</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="newBrand" class="form-label">Brand :</label>
+                                            <select name="newBrand" id="newBrand" class="form-control" required>
+                                                <option value="">-- SELECT --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col">
+                                            <label for="newPackaging" class="form-label">Packaging :</label>
+                                            <input type="text" name="newPackaging" id="newPackaging" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="newTreshold" class="form-label">Supply treshold :</label>
+                                            <input type="number" name="newTreshold" id="newTreshold" class="form-control" min="0" required>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="newPrice" class="form-label">Price (f cfa):</label>
+                                            <input type="number" name="newPrice" id="newPrice" class="form-control" min="0" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-button mb-3 text-center">
+                                        <button type="button" id="save" class="btn btn-primary">Save product</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <p>test</p>
+                    </div>
+                </div>
+
+                <!-- Modal dialog to edit a category-->
+                <div class="modal modal-lg" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Edit product's form</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="notifications">
+                                    <span></span>
+                                </div>
+                                <form class="form">
+                                    <div class="row">
+                                        <div class="mb-3 col-sm-3">
+                                            <label for="editImage" class="form-label">Product's image :</label>
+                                            <p><i>(jpeg, png : 4 mo max)</i></p>
+                                        </div>
+                                        <div class="col">
+                                            <div class="image-preview">
+                                                <img id="editPreview" src="assets/img/default_image.png" alt="defaut image preview">
+                                            </div>
+                                            <input type="file" name="editImage" id="editImage" class="form-control" accept=".jpg, .png">
+
+                                        </div>
+                                    </div><br>
+                                    <div class="row">
+                                        <div class="mb-3 col">
+                                            <label for="editCode" class="form-label">Code :</label>
+                                            <input type="text" name="editCode" id="editCode" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="editName" class="form-label">Name :</label>
+                                            <input type="text" name="editName" id="editName" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col">
+                                            <label for="editCategory" class="form-label">Category :</label>
+                                            <select name="editCategory" id="editCategory" class="form-control" required>
+                                                <option value="">-- SELECT --</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="editBrand" class="form-label">Brand :</label>
+                                            <select name="editBrand" id="editBrand" class="form-control" required>
+                                                <option value="">-- SELECT --</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="mb-3 col">
+                                            <label for="editPackaging" class="form-label">Packaging :</label>
+                                            <input type="text" name="editPackaging" id="editPackaging" class="form-control" required>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="editTreshold" class="form-label">Supply treshold :</label>
+                                            <input type="number" name="editTreshold" id="editTreshold" class="form-control" min="0" required>
+                                        </div>
+                                        <div class="mb-3 col">
+                                            <label for="editPrice" class="form-label">Price (f cfa):</label>
+                                            <input type="number" name="editPrice" id="editPrice" class="form-control" min="0" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-button mb-3 text-center">
+                                        <button type="button" id="update" class="btn btn-primary">Update product</button>
+                                        <button type="button" id="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete product</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    
                     </div>
                 </div>
             </div>
         </main>
+
+        <!-- load js code -->
+        <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
+        <script src="assets/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
     </body>
 </html>

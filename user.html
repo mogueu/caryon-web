@@ -11,16 +11,10 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="stylesheet" href="assets/css/caryon.css">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap-5.3.1-dist/css/bootstrap.min.css" media="screen">
+        <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/fontawesome.min.css">
         <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/regular.min.css">
         <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/solid.min.css">
-
-        <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
-        <script src="assets/bootstrap/js/bootstrap.js"></script>
-        <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
-        <script>
-            $('#myModal').modal(show)
-        </script>
     </head>
 
     <body id="body">
@@ -81,8 +75,8 @@
                 </div>
 
                 <div class="card-body">
-                    <div class="buttons text-right">
-                        <button class="btn btn-light" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-circle-plus"></i>New user</button><br><br>
+                    <div class="buttons text-end">
+                        <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-circle-plus"></i>New user</button><br><br>
                     </div>
                     <div class="filter">
                         <form method="post" action="#" class="col-sm-4">
@@ -112,7 +106,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="5" class="text-center">No brand found</td>
+                                    <td colspan="5" class="text-center">No user found</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -125,25 +119,40 @@
                     <button class="next btn btn-transparent" id="next">Next</button>
                 </div>
 
-            </div>
-
-              <!-- Modal -->
-              <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+                <!-- Modal dialog to add new category-->
+                <div class="modal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">New user's form</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form">
+                                    <div class="mb-3">
+                                        <label for="newUsername" class="form-label">Username :</label>
+                                        <input type="text" name="newUsername" id="newUsername" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="newPassword" class="form-label">Password :</label>
+                                        <input type="text" name="newPassword" id="newPassword" class="form-control" required>
+                                    </div>
+                                    <div class="form-button mb-3 text-center">
+                                        <button type="button" id="save" class="btn btn-primary">Save user</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <p>test</p>
-                        </div>
-                    
                     </div>
                 </div>
             </div>
         </main>
+
+        <!-- load js code -->
+        <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
+        <script src="assets/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
+        <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
     </body>
 </html>
