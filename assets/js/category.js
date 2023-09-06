@@ -1,5 +1,4 @@
 let modal = null;
-const newButton = document.getElementById('add-button');
 const categoryTable = document.querySelector('.table');
 const newCategoryField = document.getElementById('categoryNew');
 const editCategoryField = document.getElementById('categoryEdit');
@@ -12,19 +11,10 @@ const editForm = document.querySelector('#editModal .form');
 //get the list of each brand edit's button
 const editButtonList = document.querySelectorAll('.edit-button');
 
-//url for getAllBrands API
-const  baseCategoryUrl = "http://localhost:5678/api/categoriess";
-
-getAllCategories();
+displayCategories();
 
 //count the rows number of the tbody tag
 const tableRows = categoryTable.tBodies[0].rows.length;
-
-newButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    clearAddNotifications();
-    addForm.reset();
-})
 
 //add an eventListener to each row of the brand's table
 for(var i=0; i < editButtonList.length; i++){
@@ -35,14 +25,25 @@ for(var i=0; i < editButtonList.length; i++){
     })
 }
 
-saveButton.addEventListener("click", (e) => {
+saveButton.addEventListener("click", async (e) => {
     e.preventDefault();
     if(newCategoryField.value == ""){
         setAddNotifications("please fill the field correctly", "alert-warning");
     }else{
-        //saveBrand(brand);
-        setAddNotifications("Brand created successfully", "alert-success");
-        addForm.reset();
+        let data = {
+            "name": newCategoryField.value
+        };
+        console.log(data);
+        //send data to api
+        const newCategory = await saveCategory(data);
+
+        if (newCategory.status === 400 || newCategory.status === 500) {
+            setAddNotifications("An error occured", "alert-warning");
+        } else {
+            setAddNotifications("Brand " + newCategory.name + " updated successfully", "alert-success");
+            addForm.reset();
+            displayCategories();
+        }
     }
     
 })
@@ -67,62 +68,95 @@ deleteButton.addEventListener("click", (e) => {
     document.querySelector("#editModal .close").click();
 })
 
-//get all brands
-async function getAllCategories()
-{
+//display categories on the page
+async function displayCategories(){
 
+    let categories = await getAllCategories();
+    if(categories.length == 0){
+        const noObjectLine = '<tr><td colspan="3" class="text-center">No category found</td></tr>';
+        document.querySelector(".table tbody").innerHTML = noObjectLine;
+    }
+    emptyTable();
+    categories.forEach((category) => {
+        createCategoryRow(category);
+    });
+}
+
+// create new rows for categories
+function createCategoryRow(object){
+    //add a row with the category id
+    const line = document.createElement('tr');
+    line.setAttribute("id", object.id);
+    //create columns
+    const nameColumn = document.createElement('td');
+    nameColumn.innerHTML = object.name;
+    line.appendChild(nameColumn);
+
+    const createdColumn = document.createElement('td');
+    createdColumn.innerHTML = object.created
+    line.appendChild(createdColumn);
+
+    addEditButton(line);
+    document.querySelector(".table tbody").appendChild(line);
 }
 
 //add new brand
-async function saveCategory(category){
-    /*let formData = new formData();
-    formData.append('title', newBrandField.value);
-
+async function saveCategory(data){
     // request params
     const requestParams = {    
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: formData
+        body: JSON.stringify(data)
     };
-        
-    fetch(`http://localhost:5678/api/brand/`,requestParams )
+    const savedObject = await fetch(baseCategoryUrl, requestParams)
     .then(response => response.json())
-    .then(newProject => {
-            
-    })
-    .catch(error => {
-        console.log(error);
-    });*/
-    
+    .catch ((error) => {
+        console.error(error);
+    });
+    return savedObject;
 }
 
 //edit brand
-async function editCategory(Category){
-    /*let formData = new formData();
-    formData.append('title', newBrandField.value);
-
+async function editCategory(data){
     // request params
     const requestParams = {    
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: formData
+        body: JSON.stringify(data)
     };
         
-    fetch(`http://localhost:5678/api/brand/`,requestParams )
+    const editedObject = await fetch(baseCategoryUrl + "/" + data.id, requestParams )
     .then(response => response.json())
-    .then(newProject => {
-            
-    })
     .catch(error => {
         console.log(error);
-    });*/
+    });
+
+    return editedObject;
 }
 
 //delete brand function
-async function deleteCategory(category){
+async function deleteCategory(credentials){
+    try {
+        const deleted = await fetch(baseCategoryUrl + "/" + credentials.id, {
+            method: "DELETE",
+            headers: {
+                "content-Type": "application/json"
+            }
+            /*headers: { "Authorization": "Bearer " + credentials.token }*/
+        });
 
+        if(deleted.status === 401 || deleted.status === 204) {
+            const json = await deleted.json();
+            return json;
+        } else if (deleted.status === 500) {
+            return deleted;
+        }
+        
+    } catch (error) {
+        console.error(error);
+    }
 }

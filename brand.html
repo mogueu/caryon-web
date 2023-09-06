@@ -19,59 +19,58 @@
 
     <body id="body">
         <!-- top header in fixed position -->
-        <nav class="navbar sticky-top navbar-expand navbar-dark bg-secondary" id="navbar">
-            <a class="navbar-brand" href="#">CARYON</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="brand.html">Brands</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="category.html">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="product.html">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="supplier.html">Suppliers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="order.html">Orders</a>
-                    </li>
-                </ul>
-                
-            </div>
-            <div class="d-flex dropdown">
-                <a class="btn dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user"></i>
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="profile.html">My profile</a></li>
-                    <li><a class="dropdown-item" href="#">Users</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" id="logout" href="#">Logout</a></li>
-                </ul>
-            </div>
-        </nav>
-          
+        <header class="d-flex bg-secondary sticky-top">
+            <nav class="navbar navbar-expand navbar-dark" id="navbar">
+                <a class="navbar-brand" href="#">CARYON</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="brand.html">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.html">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="product.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="supplier.html">Suppliers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="order.html">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="entry.html">Stocking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="expense.html">Expenses</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="user.html">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">My profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="logout" href="#">Logout</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+        </header> 
 
         <!-- main content of the appm where evereything are displayed -->
         <main id="main">
             <div class="page-title">
                 <h1 class="h1"><i class="fa-solid fa-arrow-up-right-from-square"></i>Manage brands</h1>
             </div>
-
-            <!-- notification block -->
-            <div class="notifications alert alert-success">
-                
-            </div>
-
             <!-- all informations about the component are displayed here -->
             <div class="card">
                 <div class="card-header">
@@ -87,7 +86,7 @@
                             <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Search">
                         </form>
                     </div>
-                    <div class="archive">
+                    <div class="archive table-responsive">
                         <table class="table table-hover">
                             <thead class="bg-light">
                                 <tr>
@@ -97,30 +96,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Adidas</td>
-                                    <td>Created</td>
-                                    <td class="action">
-                                        <button type="button" class="btn btn-transparent text-info edit-button" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Puma</td>
-                                    <td>Created</td>
-                                    <td class="action">
-                                        <button type="button" class="btn btn-transparent text-info edit-button" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>One All Sports</td>
-                                    <td>Created</td>
-                                    <td class="action">
-                                        <button type="button" class="btn btn-transparent text-info edit-button" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" class="text-center">No brand found</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>

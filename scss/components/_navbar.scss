@@ -1,11 +1,25 @@
+
 #navbar{
+    width: 1200px;
+    margin: auto;
     &-brand{
         min-width: 150px;
     }
     .nav-item{
-        width: 120px;
+        width: auto;
+        padding-left: 5px;
+        padding-right: 5px;
         border-right: 1px solid #fff !important;
         text-align: center;
         font-weight: bolder;
+    }
+    &.navbar-expand{
+        justify-content: space-between;
+    }
+    .navbar-collapse{
+        flex-grow: 0;
+    }
+    .navbar-brand{
+        font-weight: bold;
     }
 }

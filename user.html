@@ -19,45 +19,46 @@
 
     <body id="body">
         <!-- top header in fixed position -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-            <a class="navbar-brand" href="#">CARYON</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="brand.html">Brands</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="category.html">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="product.html">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="supplier.html">Suppliers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="order.html">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user.html">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.html">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">logout</a>
-                    </li>  
-                </ul>
-                
-            </div>
-        </nav>
-          
+        <header class="d-flex bg-secondary sticky-top">
+            <nav class="navbar navbar-expand navbar-dark" id="navbar">
+                <a class="navbar-brand" href="#">CARYON</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="brand.html">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.html">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="product.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="supplier.html">Suppliers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="order.html">Orders</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="user.html">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">My profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="logout" href="#">Logout</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+        </header>
 
         <!-- main content of the appm where evereything are displayed -->
         <main id="main">

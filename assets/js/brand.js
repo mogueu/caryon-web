@@ -1,5 +1,4 @@
 let modal = null;
-const newButton = document.getElementById('add-button');
 const brandTable = document.querySelector('.table');
 const newBrandField = document.getElementById('brandNew');
 const editBrandField = document.getElementById('brandEdit');
@@ -12,19 +11,10 @@ const editForm = document.querySelector('#editModal .form');
 //get the list of each brand edit's button
 const editButtonList = document.querySelectorAll('.edit-button');
 
-//url for getAllBrands API
-const  baseBrandUrl = "http://127.0.0.1:8000/api/brands";
-
-getAllBrands();
+displayBrands();
 
 //count the rows number of the tbody tag
 const tableRows = brandTable.tBodies[0].rows.length;
-
-newButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    clearAddNotifications();
-    addForm.reset();
-})
 
 //add an eventListener to each row of the brand's table
 for(var i=0; i < editButtonList.length; i++){
@@ -35,14 +25,25 @@ for(var i=0; i < editButtonList.length; i++){
     })
 }
 
-saveButton.addEventListener("click", (e) => {
+saveButton.addEventListener("click", async (e) => {
     e.preventDefault();
     if(newBrandField.value == ""){
         setAddNotifications("please fill the field correctly", "alert-warning");
     }else{
-        //saveBrand(brand);
-        setAddNotifications("Brand created successfully", "alert-success");
-        addForm.reset();
+        let data = {
+            "name": newBrandField.value
+        };
+        console.log(data);
+        //send data to api
+        const newBrand = await saveBrand(data);
+
+        if (newBrand.status === 400 || newBrand.status === 500) {
+            setAddNotifications("An error occured", "alert-warning");
+        } else {
+            setAddNotifications("Brand " + newBrand.name + " updated successfully", "alert-success");
+            addForm.reset();
+            displayBrands();
+        }
     }
     
 })
@@ -54,7 +55,7 @@ updateButton.addEventListener("click", (e) => {
         setEditNotifications("please fill the field correctly", "alert-warning");
     }else{
         //editBrand(brand);
-        setEditNotifications("Brand updated successfully", "alert-success");
+        
         
     }
 })
@@ -67,64 +68,98 @@ deleteButton.addEventListener("click", (e) => {
     document.querySelector("#editModal .close").click();
 })
 
-//get all brands
-async function getAllBrands()
-{
+//display brands on the page
+async function displayBrands(){
 
+    let brands = await getAllBrands();
+    console.log(brands);
+    if(brands.length == 0){
+        const noObjectLine = '<tr><td colspan="3" class="text-center">No brand found</td></tr>';
+        document.querySelector(".table tbody").innerHTML = noObjectLine;
+    }
+    emptyTable();
+    brands.forEach((brand) => {
+    createBrandRow(brand);
+    });
+}
+
+//create new rows for brands items
+function createBrandRow(object){
+    //add a row with the category id
+    const line = document.createElement('tr');
+    line.setAttribute("id", object.id);
+    //create columns
+    const nameColumn = document.createElement('td');
+    nameColumn.innerHTML = object.name;
+    line.appendChild(nameColumn);
+
+    const createdColumn = document.createElement('td');
+    createdColumn.innerHTML = object.created
+    line.appendChild(createdColumn);
+
+    addEditButton(line);
+    document.querySelector(".table tbody").appendChild(line);
 }
 
 //add new brand
-async function saveBrand(brand){
-    /*let formData = new formData();
-    formData.append('title', newBrandField.value);
-
+async function saveBrand(data){
     // request params
     const requestParams = {    
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: formData
+        body: JSON.stringify(data)
     };
-        
-    fetch(`http://localhost:5678/api/brand/`,requestParams )
+    const savedObject = await fetch(baseBrandUrl, requestParams)
     .then(response => response.json())
-    .then(newProject => {
-            
-    })
-    .catch(error => {
-        console.log(error);
-    });*/
-    
+    .catch ((error) => {
+        console.error(error);
+    });
+    return savedObject;  
 }
 
 //edit brand
-async function editBrand(brand){
-    /*let formData = new formData();
-    formData.append('title', newBrandField.value);
-
+async function editBrand(data){
     // request params
     const requestParams = {    
-        method: "POST",
+        method: "PUT",
         headers: {
             "Content-Type": "application/json"
         },
-        body: formData
+        body: JSON.stringify(data)
     };
         
-    fetch(`http://localhost:5678/api/brand/`,requestParams )
+    const editedObject = await fetch(baseBrandUrl + "/" + data.id, requestParams )
     .then(response => response.json())
-    .then(newProject => {
-            
-    })
     .catch(error => {
         console.log(error);
-    });*/
+    });
+
+    return editedObject;
 }
 
 //delete brand function
-async function deleteBrand(brand){
+async function deleteBrand(credentials){
+    try {
+        const deleted = await fetch(baseBrandUrl + "/" + credentials.id, {
+            method: "DELETE",
+            headers: {
+                "content-Type": "application/json"
+            }
+            /*headers: { "Authorization": "Bearer " + credentials.token }*/
+        });
 
+        if(deleted.status === 401 || deleted.status === 204) {
+            const json = await deleted.json();
+            return json;
+        } else if (deleted.status === 500) {
+            return deleted;
+        }
+        
+    } catch (error) {
+        console.error(error);
+    }
 }
 
 

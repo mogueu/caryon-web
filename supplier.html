@@ -11,98 +11,94 @@
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
         <link rel="stylesheet" href="assets/css/caryon.css">
-        <link rel="stylesheet" href="assets/bootstrap-5.3.1-dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="assets/bootstrap-5.3.1-dist/css/bootstrap.min.css" media="screen">
+        <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/fontawesome.min.css">
         <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/regular.min.css">
         <link rel="stylesheet" href="assets/fontawesome-free-5.15.4-web/css/solid.min.css">
     </head>
 
     <body id="body">
         <!-- top header in fixed position -->
-        <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-            <a class="navbar-brand" href="#">CARYON</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="nav navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="brand.html">Brands</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="category.html">Categories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="product.html">Products</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="supplier.html">Suppliers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="order.html">Orders</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="user.html">Users</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="profile.html">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">logout</a>
-                    </li>  
-                </ul>
-                
-            </div>
-        </nav>
-          
+        <header class="d-flex bg-secondary sticky-top">
+            <nav class="navbar navbar-expand navbar-dark" id="navbar">
+                <a class="navbar-brand" href="#">CARYON</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="index.html">Dashboard <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="brand.html">Brands</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="category.html">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="product.html">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="supplier.html">Suppliers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="order.html">Orders</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="entry.html">Stocking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="expense.html">Expenses</a>
+                        </li>
+                        <li class="nav-item" >
+                            <a class="nav-link" href="user.html">Users</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="profile.html">My profile</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="logout" href="#">Logout</a>
+                        </li>
+                    </ul>
+                    
+                </div>
+            </nav>
+        </header> 
 
         <!-- main content of the appm where evereything are displayed -->
         <main id="main">
             <div class="page-title">
                 <h1 class="h1"><i class="fa-solid fa-arrow-up-right-from-square"></i>Manage suppliers</h1>
             </div>
-            <div class="notifications alert alert-success">
-                
-            </div>
-
             <!-- all informations about the component are displayed here -->
-            <div class="card text-left">
+            <div class="card">
                 <div class="card-header">
                   <span>Manage suppliers</span>
                 </div>
 
                 <div class="card-body">
-                    <div class="buttons text-right">
-                        <button class="btn btn-light" data-toggle="modal" data-target="#myModal"><i class="fa-solid fa-circle-plus"></i>New supplier</button><br><br>
+                    <div class="buttons text-end">
+                        <button class="btn btn-light" id="add-button" data-bs-toggle="modal" data-bs-target="#addModal"><i class="fa-solid fa-circle-plus"></i>New supplier</button><br>
                     </div>
                     <div class="filter">
                         <form method="post" action="#" class="col-sm-4">
                             <input type="search" name="keyword" id="keyword" class="form-control" placeholder="Search">
                         </form>
                     </div>
-                    <div class="archive">
+                    <div class="archive table-responsive">
                         <table class="table table-hover">
                             <thead class="bg-light">
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Created</th>
+                                    <th>Company</th>
+                                    <th>Location</th>
+                                    <th>Representative</th>
+                                    <th>Contact</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Name</td>
-                                    <td>Created</td>
-                                    <td class="action">
-                                        <button type="button" class="btn btn-transparent text-info"><i class="fa-solid fa-pen-to-square"></i></button>
-                                        <button type="button" class="btn btn-transparent text-danger"><i class="fa-solid fa-trash-can"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td colspan="3" class="text-center">No supplier found</td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -114,22 +110,85 @@
                     <button type="button" class="next btn btn-transparent" id="next">Next</button>
                 </div>
 
-            </div>
+                <!-- Modal dialog to add new brand-->
+                <div class="modal" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true" aria-modal="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="addModalLabel">New supplier's form</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="notifications">
+                                    <span></span>
+                                </div>
+                                <form class="form">
+                                    <div class="mb-3">
+                                        <label for="companyNew" class="form-label">Company name :</label>
+                                        <input type="text" name="companyNew" id="companyNew" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="locationNew" class="form-label">Location :</label>
+                                        <input type="text" name="locationNew" id="locationNew" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="representativeNew" class="form-label">Representative name :</label>
+                                        <input type="text" name="representativeNew" id="representativeNew" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contactNew" class="form-label">Contact :</label>
+                                        <input type="number" name="contactNew" id="contactNew" class="form-control" required>
+                                    </div>
+                                    <div class="form-button mb-3 text-center">
+                                        <button type="button" id="save" class="btn btn-primary">Save supplier</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-              <!-- Modal -->
-              <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="myModalLabel">Modal title</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            </button>
+                <!-- Modal dialog to edit a brand-->
+                <div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" aria-hidden="false">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editModalLabel">Edit brand's form</h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- display notification message if it exists -->
+                                <div class="notifications">
+                                    <span></span>
+                                </div>
+                                <form class="form">
+                                    <div class="mb-3">
+                                        <label for="companyEdit" class="form-label">Company name :</label>
+                                        <input type="text" name="companyEdit" id="companyEdit" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="locationEdit" class="form-label">Location :</label>
+                                        <input type="text" name="locationEdit" id="locationEdit" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="representativeEdit" class="form-label">Representative name :</label>
+                                        <input type="text" name="representativeEdit" id="representativeEdit" class="form-control" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="contactEdit" class="form-label">Contact :</label>
+                                        <input type="number" name="contactEdit" id="contactEdit" class="form-control" required>
+                                    </div>
+                                    <div class="form-button mb-3 text-center">
+                                        <button type="button" id="update" class="btn btn-primary">Update brand</button>
+                                        <button type="button" id="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete brand</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <p>test</p>
-                        </div>
-                    
                     </div>
                 </div>
             </div>
@@ -139,5 +198,7 @@
         <script src="https://kit.fontawesome.com/6df78dbc74.js" crossorigin="anonymous"></script>
         <script src="assets/bootstrap-5.3.1-dist/js/bootstrap.min.js"></script>
         <script src="assets/js/jquery-3.7.0.slim.min.js"></script>
+        <script src="assets/js/base.js"></script>
+        <script src="assets/js/supplier.js"></script>
     </body>
 </html>
