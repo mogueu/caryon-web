@@ -3,7 +3,7 @@ let modal = null;
 const productTable = document.querySelector('.table');
 
 //New product form fields
-const newImageField = document.getElementById('newImage');
+//const newImageField = document.getElementById('newImage');
 const newCodeField = document.getElementById('newCode');
 const newNameField = document.getElementById('newName');
 const newCategoryField = document.getElementById('newCategory');
@@ -13,14 +13,14 @@ const newTresholdField = document.getElementById('newTreshold');
 const newPriceField = document.getElementById('newPrice');
 
 //Edit product form fields
-const editImageField = document.getElementById('editImage');
+//const editImageField = document.getElementById('editImage');
 const editCodeField = document.getElementById('editCode');
 const editNameField = document.getElementById('editName');
 const editCategoryField = document.getElementById('editCategory');
 const editBrandField = document.getElementById('editBrand');
 const editPackagingField = document.getElementById('editPackaging');
 const editTresholdField = document.getElementById('editTreshold');
-const editPriceField = document.getElementById('editprice');
+const editPriceField = document.getElementById('editPrice');
 
 //buttons
 const saveButton = document.getElementById('save');
@@ -41,25 +41,14 @@ addBrands();
 //count the rows number of the tbody tag
 const tableRows = productTable.tBodies[0].rows.length;
 
-//add an eventListener to each row of the brand's table
-for(var i=0; i < editButtonList.length; i++){
-
-    editButtonList[i].addEventListener("click", (e) => {
-        e.preventDefault();
-        clearEditNotifications();
-    })
-}
-
 // listen to save button
 saveButton.addEventListener("click", async (e) => {
     e.preventDefault();
     if(!isValidAddForm()){
         setAddNotifications("please fill the field correctly", "alert-warning");
     }else{
-        const brandId = parseInt(newBrandField.value);
-        const categoryId = parseInt(newCategoryField.value);
-        const categoryItem = await getOneCategory(categoryId);
-        const brandItem = await getOneBrand(brandId);
+        let brandId = parseInt(newBrandField.value);
+        let categoryId = parseInt(newCategoryField.value);
 
         let data = {
             "code": newCodeField.value,
@@ -70,7 +59,6 @@ saveButton.addEventListener("click", async (e) => {
             "supplyTreshold": parseInt(newTresholdField.value),
             "price": parseInt(newPriceField.value)
         };
-        console.log(data);
         //send data to api
         const newProduct = await saveProduct(data);
 
@@ -89,19 +77,17 @@ updateButton.addEventListener("click", async (e) => {
     if(!isValidAddForm()){
         setAddNotifications("please fill the field correctly", "alert-warning");
     }else{
-        const brandId = parseInt(editBrandField.value);
-        const categoryId = parseInt(editCategoryField.value);
-        const categoryItem = await getOneCategory(categoryId);
-        const brandItem = await getOneBrand(brandId);
+        let brandId = parseInt(editBrandField.value);
+        let categoryId = parseInt(editCategoryField.value);
 
         let data = {
-            "code": newCodeField.value,
-            "name": newNameField.value,
+            "code": editCodeField.value,
+            "name": editNameField.value,
             "categoryId": categoryId,
             "brandId": brandId,
-            "packaging": newPackagingField.value,
-            "supplyTreshold": parseInt(newTresholdField.value),
-            "price": parseInt(newPriceField.value)
+            "packaging": editPackagingField.value,
+            "supplyTreshold": parseInt(editTresholdField.value),
+            "price": parseInt(editPriceField.value)
         };
         console.log(data);
         //send data to api
@@ -116,6 +102,22 @@ updateButton.addEventListener("click", async (e) => {
         }
     }
     
+})
+
+//handle click event on delete product's button
+deleteButton.addEventListener("click", async (e) => {
+    e.preventDefault(); 
+    let objectId = parseInt(hiddenField.value);
+    if(objectId === 0){
+        setEditNotifications("No product found");
+    }else{
+        const isDeleted = await deleteProduct(objectId);
+        if(isDeleted){
+            editForm.reset();
+            displayProducts();
+            document.querySelector("#editModal .close").click();
+        }
+    }  
 })
 
 function isValidAddForm(){
@@ -152,41 +154,57 @@ function isValidEditForm(){
 
 //add brands to the select's form field
 async function addBrands(){
-    let brands = await getAllBrands();
-    const select = document.querySelector("#newBrand");
-    if (select != null) {
-        brands.forEach((brand) => {
-            const option = document.createElement("option")
-            option.value = brand.id;
-            option.textContent = brand.name;
-            select.appendChild(option);
-        })
-    }
+    let responses = await getAllBrands();
+    const selectAdd = document.querySelector("#newBrand");
+    const selectEdit = document.querySelector("#editBrand");
+
+    responses.forEach((response) => {
+        if(selectAdd != null){
+            const optionA = document.createElement("option")
+            optionA.value = response.id;
+            optionA.textContent = response.name;
+            selectAdd.appendChild(optionA);
+        }
+        if(selectEdit != null){
+            const optionE = document.createElement("option")
+            optionE.value = response.id;
+            optionE.textContent = response.name;
+            selectEdit.appendChild(optionE);
+        }   
+    })
 }
 
 // add categories to the select's form field
 async function addCategories(){
-    let categories = await getAllCategories();
-    const select = document.querySelector("#newCategory");
-    if (select != null) {
-        categories.forEach((category) => {
-            const option = document.createElement("option")
-            option.value = category.id;
-            option.textContent = category.name;
-            select.appendChild(option);
-        })
-    }
+    let responses = await getAllCategories();
+    const selectAdd = document.querySelector("#newCategory");
+    const selectEdit = document.querySelector("#editCategory");
+    
+    responses.forEach((response) => {
+        if(selectAdd != null){
+            const optionA = document.createElement("option")
+            optionA.value = response.id;
+            optionA.textContent = response.name;
+            selectAdd.appendChild(optionA);
+        }
+        if(selectEdit != null){
+            const optionE = document.createElement("option")
+            optionE.value = response.id;
+            optionE.textContent = response.name;
+            selectEdit.appendChild(optionE);
+        }   
+    })
 }
 
 //display suppliers on the page
 async function displayProducts(){
 
     let products = await getAllProducts();
+    emptyTable();
     if(products.length == 0){
         const noObjectLine = '<tr><td colspan="9" class="text-center">No product found</td></tr>';
         document.querySelector(".table tbody").innerHTML = noObjectLine;
     }
-    emptyTable();
     products.forEach((product) => {
         createProductRow(product);
     });
@@ -196,7 +214,6 @@ async function displayProducts(){
 function createProductRow(object){
     //add a row with the category id
     const line = document.createElement('tr');
-    line.setAttribute("id", object.id);
     //create columns
     const codeColumn = document.createElement('td');
     codeColumn.innerHTML = object.code;
@@ -230,9 +247,23 @@ function createProductRow(object){
     quantityColumn.innerHTML = object.quantity;
     line.appendChild(quantityColumn);
 
-    addEditButton(line);
+    addEditButton(line, object.id);
 
     document.querySelector(".table tbody").appendChild(line);
+}
+
+async function fillObject(id){
+    let object = await getOneProduct(id);
+    editCodeField.value = object.code;
+    editNameField.value = object.name;
+    editBrandField.value = object.brand.id;
+    editBrandField.text = object.brand.name;
+    editCategoryField.value = object.category.id;
+    editCategoryField.text = object.category.name;
+    editPackagingField.value = object.packaging;
+    editTresholdField.value = object.supplyTreshold;
+    editPriceField.value = object.price;
+    document.getElementById("hideField").value = object.id;
 }
 
 //add new product
@@ -274,4 +305,28 @@ async function editProduct(data){
     });
 
     return editedObject;
+}
+
+//delete expense function
+async function deleteProduct(credentials){
+    // request params
+    const requestParams = {    
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+            /*headers: { "Authorization": "Bearer " + credentials.token }*/
+        },
+    }; 
+    const deletedObject = await fetch(baseProductUrl + "/" + credentials, requestParams )
+    .then(response => {
+        if(response.ok){
+            return true;
+        }
+        return false;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    return deletedObject
+    
 }

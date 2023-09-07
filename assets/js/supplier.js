@@ -27,22 +27,10 @@ const editContactField = document.getElementById('contactEdit');
 //get the list of each brand edit's button
 const editButtonList = document.querySelectorAll('.edit-button');
 
-//url for getAllBrands API
-const  baseSupplierUrl = "http://127.0.0.1:8000/api/suppliers";
-
 displaySuppliers();
 
 //count the rows number of the tbody tag
 const tableRows = supplierTable.tBodies[0].rows.length;
-
-//add an eventListener to each row of the brand's table
-for(var i=0; i < editButtonList.length; i++){
-
-    editButtonList[i].addEventListener("click", (e) => {
-        e.preventDefault();
-        clearEditNotifications();
-    })
-}
 
 // listen to save button
 saveButton.addEventListener("click", async (e) => {
@@ -84,11 +72,19 @@ updateButton.addEventListener("click", (e) => {
 })
 
 //handle click event on delete supplier's button
-deleteButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    //deleteBrand(brand); 
-    editForm.reset();
-    document.querySelector("#editModal .close").click();
+deleteButton.addEventListener("click", async (e) => {
+    e.preventDefault(); 
+    let objectId = parseInt(hiddenField.value);
+    if(objectId === 0){
+        setEditNotifications("No product found");
+    }else{
+        const isDeleted = await deleteSupplier(objectId);
+        if(isDeleted){
+            editForm.reset();
+            displaySuppliers();
+            document.querySelector("#editModal .close").click();
+        }
+    }  
 })
 
 // check if the add form is valid
@@ -117,23 +113,15 @@ function isValidEditForm(){
     }
 }
 
-//get all suppliers
-async function getAllSuppliers()
-{
-    const suppliers = await fetch(baseSupplierUrl).then((response) => response.json());
-    return suppliers;
-}
-
 //display suppliers on the page
 async function displaySuppliers(){
 
     let suppliers = await getAllSuppliers();
-    console.log(suppliers);
+    emptyTable();
     if(suppliers.length == 0){
         const noObjectLine = '<tr><td colspan="5" class="text-center">No supplier found</td></tr>';
         document.querySelector(".table tbody").innerHTML = noObjectLine;
     }
-    emptyTable();
     suppliers.forEach((supplier) => {
         createSupplierRow(supplier);
     });
@@ -143,27 +131,35 @@ async function displaySuppliers(){
 function createSupplierRow(object){
     //add a row with the category id
     const line = document.createElement('tr');
-    line.setAttribute("id", object.id);
     //create columns
     const companyColumn = document.createElement('td');
     companyColumn.innerHTML = object.company;
     line.appendChild(companyColumn);
 
     const locationColumn = document.createElement('td');
-    locationColumn.innerHTML = object.location
+    locationColumn.innerHTML = object.location;
     line.appendChild(locationColumn);
 
     const representativeColumn = document.createElement('td');
-    representativeColumn.innerHTML = object.representative
+    representativeColumn.innerHTML = object.representative;
     line.appendChild(representativeColumn);
 
     const contactColumn = document.createElement('td');
-    contactColumn.innerHTML = object.contact
+    contactColumn.innerHTML = object.contact;
     line.appendChild(contactColumn);
 
-    addEditButton(line);
+    addEditButton(line, object.id);
 
     document.querySelector(".table tbody").appendChild(line);
+}
+
+async function fillObject(id){
+    let object = await getOneSupplier(id);
+    editCompanyField.value = object.company;
+    editLocationField.value = object.location;
+    editRepresentativeField.value = object.representative;
+    editContactField.value = object.contact;
+    document.getElementById("hideField").value = object.id;
 }
 
 //add new supplier
@@ -207,23 +203,23 @@ async function editSupplier(data){
 
 //delete supplier function
 async function deleteSupplier(credentials){
-    try {
-        const deleted = await fetch(baseSupplierUrl + "/" + credentials.id, {
-            method: "DELETE",
-            headers: {
-                "content-Type": "application/json"
-            }
+    // request params
+    const requestParams = {    
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
             /*headers: { "Authorization": "Bearer " + credentials.token }*/
-        });
-
-        if(deleted.status === 401 || deleted.status === 204) {
-            const json = await deleted.json();
-            return json;
-        } else if (deleted.status === 500) {
-            return deleted;
+        },
+    }; 
+    const deletedObject = await fetch(baseSupplierUrl + "/" + credentials, requestParams )
+    .then(response => {
+        if(response.ok){
+            return true;
         }
-        
-    } catch (error) {
-        console.error(error);
-    }
+        return false;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    return deletedObject
 }

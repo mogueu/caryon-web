@@ -4,6 +4,12 @@ const  baseBrandUrl = "http://127.0.0.1:8000/api/brands";
 const  baseCategoryUrl = "http://127.0.0.1:8000/api/categories";
 //url for getAllBrands API
 const  baseProductUrl = "http://localhost:8000/api/products";
+//url for getAllBrands API
+const  baseSupplierUrl = "http://127.0.0.1:8000/api/suppliers";
+//url for getAllBrands API
+const  baseExpenseUrl = "http://127.0.0.1:8000/api/expenses";
+//url for getAllBrands API
+const  baseEntryUrl = "http://127.0.0.1:8000/api/entries";
 
 const isConnected = !!localStorage.getItem('token');
 
@@ -14,6 +20,8 @@ const notificationsAdd = document.querySelector('#addModal .notifications');
 const tagAdd  = document.querySelector("#addModal .notifications span");
 const notificationsEdit = document.querySelector('#editModal .notifications');
 const tagEdit  = document.querySelector("#editModal .notifications span");
+const closeEditModal = document.querySelector("#editModal .close");
+const hiddenField = document.getElementById("hideField");
 
 //display modals and reset form fields
 newButton.addEventListener("click", (e) => {
@@ -22,11 +30,22 @@ newButton.addEventListener("click", (e) => {
     addForm.reset();
 })
 
-function addEditButton(line){
+closeEditModal.addEventListener("click", (e) => {
+    const form = document.querySelector("#editModal .form");
+    form.reset();
+});
+
+function addEditButton(line, id){
     const actionColumn = document.createElement('td');
     actionColumn.setAttribute("class", "action");
-    actionColumn.innerHTML = '<button class="btn btn-transparent text-info edit-button" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen-to-square"></i></button>';
+    actionColumn.innerHTML = '<button id="' + id +'" type="button" class="btn btn-transparent text-info edit-button" data-bs-toggle="modal" data-bs-target="#editModal"><i class="fa-solid fa-pen-to-square"></i></button>';
     line.appendChild(actionColumn);
+    actionColumn.addEventListener("click", (e) => {
+        e.preventDefault();
+        clearEditNotifications();
+        let message = actionColumn.firstChild.getAttribute("id");
+        fillObject(message);
+    })
 }
 
 //set notifications with two args. one for the message and another wit a bootstrap class
@@ -65,35 +84,6 @@ function logout() {
         localStorage.clear();
         window.location.assign("login.html");
     });
-};
-
-// set an item to localStorage
-function setDataToStorage(dataName, data){
-    localStorage.setItem(dataName, JSON.stringify(data));
-}
-
-//get brands from localStorage
-function getLocalStorageBrands(){
-    let datas = localStorage.getItem('brands');
-    return datas == null ? [] : JSON.parse(datas);
-}
-
-//get categories from localStorage
-function getLocalStorageCategories(){
-    let datas = localStorage.getItem('categories');
-    return datas == null ? [] : JSON.parse(datas);
-}
-
-//get suppliers from localStorage
-function getLocalStorageSuppliers(){
-    let datas = localStorage.getItem('suppliers');
-    return datas == null ? [] : JSON.parse(datas);
-}
-
-//get products from localStorage
-function getLocalStorageProducts(){
-    let datas = localStorage.getItem('products');
-    return datas == null ? [] : JSON.parse(datas);
 }
 
 function emptyTable(){
@@ -125,6 +115,18 @@ async function getOneCategory(id)
     const category = await fetch(baseCategoryUrl + "/" + id).then((response) => response.json());
     return category;
 }
+//get all suppliers
+async function getAllSuppliers()
+{
+    const suppliers = await fetch(baseSupplierUrl).then((response) => response.json());
+    return suppliers;
+}
+//get one supplier
+async function getOneSupplier(id)
+{
+    const supplier = await fetch(baseSupplierUrl + "/" + id).then((response) => response.json());
+    return supplier;
+}
 //get all productss
 async function getAllProducts()
 {
@@ -136,4 +138,28 @@ async function getOneProduct(id)
 {
     const product = await fetch(baseProductUrl + "/" + id).then((response) => response.json());
     return product;
+}
+//get all expenses
+async function getAllExpenses()
+{
+    const expenses = await fetch(baseExpenseUrl).then((response) => response.json());
+    return expenses;
+}
+//get one expense
+async function getOneExpense(id)
+{
+    const expense = await fetch(baseExpenseUrl + "/" + id).then((response) => response.json());
+    return expense;
+}
+//get all entries
+async function getAllEntries()
+{
+    const entries = await fetch(baseEntryUrl).then((response) => response.json());
+    return entries;
+}
+//get one entry
+async function getOneEntry(id)
+{
+    const entry = await fetch(baseEntryUrl + "/" + id).then((response) => response.json());
+    return entry;
 }

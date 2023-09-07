@@ -156,6 +156,10 @@
   width: 1200px;
 }
 
+#hideField {
+  visibility: hidden;
+}
+
 .archive {
   max-height: 500px;
 }

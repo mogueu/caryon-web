@@ -70,9 +70,6 @@
             <div class="page-title">
                 <h1 class="h1"><i class="fa-solid fa-arrow-up-right-from-square"></i>Manage products</h1>
             </div>
-            <div class="notifications alert aler-success">
-                
-            </div>
 
             <!-- all informations about the component are displayed here -->
             <div class="card text-left">
@@ -132,7 +129,7 @@
                                     <span></span>
                                 </div>
                                 <form class="form">
-                                    <div class="row">
+                                    <!--<div class="row">
                                         <div class="mb-3 col-sm-3">
                                             <label for="newImage" class="form-label">Product's image :</label>
                                             <p><i>(jpeg, png : 4 mo max)</i></p>
@@ -144,7 +141,7 @@
                                             <input type="file" name="newImage" id="newImage" class="form-control" accept=".jpg, .png">
 
                                         </div>
-                                    </div><br>
+                                    </div><br>-->
                                     <div class="row">
                                         <div class="mb-3 col">
                                             <label for="newCode" class="form-label">Code :</label>
@@ -207,7 +204,7 @@
                                     <span></span>
                                 </div>
                                 <form class="form">
-                                    <div class="row">
+                                    <!--<div class="row">
                                         <div class="mb-3 col-sm-3">
                                             <label for="editImage" class="form-label">Product's image :</label>
                                             <p><i>(jpeg, png : 4 mo max)</i></p>
@@ -219,7 +216,7 @@
                                             <input type="file" name="editImage" id="editImage" class="form-control" accept=".jpg, .png">
 
                                         </div>
-                                    </div><br>
+                                    </div><br>-->
                                     <div class="row">
                                         <div class="mb-3 col">
                                             <label for="editCode" class="form-label">Code :</label>
@@ -258,6 +255,7 @@
                                             <input type="number" name="editPrice" id="editPrice" class="form-control" min="0" required>
                                         </div>
                                     </div>
+                                    <input type="number" id="hideField" name="hideField" aria-hidden="true">
                                     <div class="form-button mb-3 text-center">
                                         <button type="button" id="update" class="btn btn-primary">Update product</button>
                                         <button type="button" id="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete product</button>

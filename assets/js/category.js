@@ -61,22 +61,30 @@ updateButton.addEventListener("click", (e) => {
 })
 
 //handle click event on delete brand's button
-deleteButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    //deleteBrand(brand); 
-    editForm.reset();
-    document.querySelector("#editModal .close").click();
+deleteButton.addEventListener("click", async (e) => {
+    e.preventDefault(); 
+    let objectId = parseInt(hiddenField.value);
+    if(objectId === 0){
+        setEditNotifications("No product found");
+    }else{
+        const isDeleted = await deleteCategory(objectId);
+        if(isDeleted){
+            editForm.reset();
+            displayCategories();
+            document.querySelector("#editModal .close").click();
+        }
+    }  
 })
 
 //display categories on the page
 async function displayCategories(){
 
     let categories = await getAllCategories();
+    emptyTable();
     if(categories.length == 0){
         const noObjectLine = '<tr><td colspan="3" class="text-center">No category found</td></tr>';
         document.querySelector(".table tbody").innerHTML = noObjectLine;
     }
-    emptyTable();
     categories.forEach((category) => {
         createCategoryRow(category);
     });
@@ -86,7 +94,6 @@ async function displayCategories(){
 function createCategoryRow(object){
     //add a row with the category id
     const line = document.createElement('tr');
-    line.setAttribute("id", object.id);
     //create columns
     const nameColumn = document.createElement('td');
     nameColumn.innerHTML = object.name;
@@ -96,11 +103,17 @@ function createCategoryRow(object){
     createdColumn.innerHTML = object.created
     line.appendChild(createdColumn);
 
-    addEditButton(line);
+    addEditButton(line, object.id);
     document.querySelector(".table tbody").appendChild(line);
 }
 
-//add new brand
+async function fillObject(id){
+    let object = await getOneCategory(id);
+    editCategoryField.value = object.name;
+    document.getElementById("hideField").value = object.id;
+}
+
+//add new category
 async function saveCategory(data){
     // request params
     const requestParams = {    
@@ -118,7 +131,7 @@ async function saveCategory(data){
     return savedObject;
 }
 
-//edit brand
+//edit category
 async function editCategory(data){
     // request params
     const requestParams = {    
@@ -138,25 +151,25 @@ async function editCategory(data){
     return editedObject;
 }
 
-//delete brand function
+//delete category function
 async function deleteCategory(credentials){
-    try {
-        const deleted = await fetch(baseCategoryUrl + "/" + credentials.id, {
-            method: "DELETE",
-            headers: {
-                "content-Type": "application/json"
-            }
+    // request params
+    const requestParams = {    
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
             /*headers: { "Authorization": "Bearer " + credentials.token }*/
-        });
-
-        if(deleted.status === 401 || deleted.status === 204) {
-            const json = await deleted.json();
-            return json;
-        } else if (deleted.status === 500) {
-            return deleted;
+        },
+    }; 
+    const deletedObject = await fetch(baseCategoryUrl + "/" + credentials, requestParams )
+    .then(response => {
+        if(response.ok){
+            return true;
         }
-        
-    } catch (error) {
-        console.error(error);
-    }
+        return false;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    return deletedObject
 }

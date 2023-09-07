@@ -1,4 +1,5 @@
 let modal = null;
+let rowNumber = 0;
 const brandTable = document.querySelector('.table');
 const newBrandField = document.getElementById('brandNew');
 const editBrandField = document.getElementById('brandEdit');
@@ -12,18 +13,6 @@ const editForm = document.querySelector('#editModal .form');
 const editButtonList = document.querySelectorAll('.edit-button');
 
 displayBrands();
-
-//count the rows number of the tbody tag
-const tableRows = brandTable.tBodies[0].rows.length;
-
-//add an eventListener to each row of the brand's table
-for(var i=0; i < editButtonList.length; i++){
-
-    editButtonList[i].addEventListener("click", (e) => {
-        e.preventDefault();
-        clearEditNotifications();
-    })
-}
 
 saveButton.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -45,49 +34,69 @@ saveButton.addEventListener("click", async (e) => {
             displayBrands();
         }
     }
-    
 })
 
 //handle click event on update brand's button
-updateButton.addEventListener("click", (e) => {
+updateButton.addEventListener("click", async (e) => {
     e.preventDefault();
     if(editBrandField.value == ""){
         setEditNotifications("please fill the field correctly", "alert-warning");
     }else{
         //editBrand(brand);
-        
-        
+        let data = {
+            "name": editBrandField.value
+        };
+        console.log(data);
+        //send data to api
+        const updatedBrand = await editBrand(data);
+
+        if (updatedBrand.status === 400 || updatedBrand.status === 500) {
+            setAddNotifications("An error occured", "alert-warning");
+        } else {
+            setAddNotifications("Brand " + updatedBrand.name + " updated successfully", "alert-success");
+            addForm.reset();
+            displayBrands();
+        }  
     }
 })
 
 //handle click event on delete brand's button
-deleteButton.addEventListener("click", (e) => {
-    e.preventDefault();
-    //deleteBrand(brand); 
-    editForm.reset();
-    document.querySelector("#editModal .close").click();
+deleteButton.addEventListener("click", async (e) => {
+    e.preventDefault(); 
+    let objectId = parseInt(hiddenField.value);
+    if(objectId === 0){
+        setEditNotifications("No product found");
+    }else{
+        const isDeleted = await deleteBrand(objectId);
+        if(isDeleted){
+            editForm.reset();
+            displayBrands();
+            document.querySelector("#editModal .close").click();
+        }
+    }  
 })
 
 //display brands on the page
 async function displayBrands(){
 
     let brands = await getAllBrands();
-    console.log(brands);
+    emptyTable();
     if(brands.length == 0){
         const noObjectLine = '<tr><td colspan="3" class="text-center">No brand found</td></tr>';
         document.querySelector(".table tbody").innerHTML = noObjectLine;
     }
-    emptyTable();
     brands.forEach((brand) => {
     createBrandRow(brand);
     });
 }
 
+//count the rows number of the tbody tag
+let tableRows = brandTable.tBodies[0].rows.length;
+
 //create new rows for brands items
 function createBrandRow(object){
     //add a row with the category id
     const line = document.createElement('tr');
-    line.setAttribute("id", object.id);
     //create columns
     const nameColumn = document.createElement('td');
     nameColumn.innerHTML = object.name;
@@ -97,8 +106,14 @@ function createBrandRow(object){
     createdColumn.innerHTML = object.created
     line.appendChild(createdColumn);
 
-    addEditButton(line);
+    addEditButton(line, object.id);
     document.querySelector(".table tbody").appendChild(line);
+}
+
+async function fillObject(id){
+    let object = await getOneBrand(id);
+    editBrandField.value = object.name;
+    document.getElementById("hideField").value = object.id;
 }
 
 //add new brand
@@ -141,25 +156,25 @@ async function editBrand(data){
 
 //delete brand function
 async function deleteBrand(credentials){
-    try {
-        const deleted = await fetch(baseBrandUrl + "/" + credentials.id, {
-            method: "DELETE",
-            headers: {
-                "content-Type": "application/json"
-            }
+    // request params
+    const requestParams = {    
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
             /*headers: { "Authorization": "Bearer " + credentials.token }*/
-        });
-
-        if(deleted.status === 401 || deleted.status === 204) {
-            const json = await deleted.json();
-            return json;
-        } else if (deleted.status === 500) {
-            return deleted;
+        },
+    }; 
+    const deletedObject = await fetch(baseBrandUrl + "/" + credentials, requestParams )
+    .then(response => {
+        if(response.ok){
+            return true;
         }
-        
-    } catch (error) {
-        console.error(error);
-    }
+        return false;
+    })
+    .catch(error => {
+        console.log(error);
+    });
+    return deletedObject
 }
 
 

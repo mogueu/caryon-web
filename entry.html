@@ -111,12 +111,12 @@
                     <button type="button" class="next btn btn-transparent" id="next">Next</button>
                 </div>
 
-                <!-- Modal dialog to add new brand-->
+                <!-- Modal dialog to add new entry -->
                 <div class="modal modal-lg" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true" aria-modal="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addModalLabel">New expense's form</h5>
+                                <h5 class="modal-title" id="addModalLabel">New entry's form</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -159,12 +159,12 @@
                     </div>
                 </div>
 
-                <!-- Modal dialog to edit a brand-->
+                <!-- Modal dialog to edit entry-->
                 <div class="modal" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true" aria-hidden="false">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="editModalLabel">Edit brand's form</h5>
+                                <h5 class="modal-title" id="editModalLabel">Edit entry's form</h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                                 </button>
@@ -199,6 +199,7 @@
                                             <input type="number" name="amountEdit" id="amountEdit" class="form-control" required>
                                         </div>
                                     </div>
+                                    <input type="number" id="hideField" name="hideField" aria-hidden="true">
                                     <div class="form-button mb-3 text-center">
                                         <button type="button" id="update" class="btn btn-primary">Update Expense</button>
                                         <button type="button" id="delete" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i> Delete Expense</button>
